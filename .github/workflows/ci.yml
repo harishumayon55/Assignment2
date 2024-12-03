@@ -1,0 +1,30 @@
+name: Java CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt' # or 'zulu', 'oracle'
+          java-version: '11'   # Change this to your project's Java version if different
+
+      - name: Build with Gradle or Maven
+        run: |
+          ./gradlew build # Use this if you are using Gradle
+          # mvn install   # Uncomment this if you are using Maven
+
+      - name: Run Tests
+        run: |
+          ./gradlew test # Use this for Gradle projects
+          # mvn test     # Uncomment for Maven projects
